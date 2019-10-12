@@ -320,7 +320,11 @@ export function get_page_handler(
 			// users can set a CSP nonce using res.locals.nonce
 			const nonce_attr = (res.locals && res.locals.nonce) ? ` nonce="${res.locals.nonce}"` : '';
 
+			// allow users to set lang attr using res.locals.lang
+			const lang = (res.locals && res.locals.lang) ? res.locals.lang : '';
+
 			const body = template()
+				.replace('%sapper.lang%', () => lang)
 				.replace('%sapper.base%', () => `<base href="${req.baseUrl}/">`)
 				.replace('%sapper.scripts%', () => `<script${nonce_attr}>${script}</script>`)
 				.replace('%sapper.html%', () => html)
